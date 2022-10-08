@@ -66,17 +66,35 @@ crypto-fiat price of your choice(Get Tickers).
       <span>{{ currency1a.name | uppercase }}</span>
       <mat-icon>arrow_drop_down</mat-icon>
     </button>
-    <mat-form-field appearance="legacy" style="margin-top: 4px;"> 
+    <mat-form-field appearance="legacy" style="margin-top: 4px;">
       <mat-label>Currency 1</mat-label>
       <input matInput placeholder="Enter a valid currency value" type="number" [(ngModel)]="currency1Value"
         (ngModelChange)="handleCal(1)" [disabled]="rate1===undefined">
       <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
     </mat-form-field>
   </div>
-  <div style="display: flex; align-items: center;">
-    <mat-icon *ngIf="rate1 && rate2 && rate2>rate1" style="font-size: xxx-large;" matSuffix>chevron_right</mat-icon>
-    <mat-icon *ngIf="rate1 && rate2 && rate1>rate2" style="font-size: xxx-large;" matSuffix>chevron_left</mat-icon>
-    <mat-icon *ngIf="rate1==rate2" style="font-size: xxx-large;" matSuffix>sentiment_very_satisfied</mat-icon>
+  <div style="display: flex; align-items: center; flex-flow: column; margin-top: 3%;" *ngIf="!isScreenLtMedium">
+    <mat-icon *ngIf="rate1 && rate2 && rate2>rate1" style="font-size: xxx-large; width: auto;" matSuffix>chevron_right
+    </mat-icon>
+    <mat-icon *ngIf="rate1 && rate2 && rate1>rate2" style="font-size: xxx-large; width: auto;" matSuffix>chevron_left
+    </mat-icon>
+    <mat-icon *ngIf="rate1==rate2" style="font-size: xxx-large; width: auto;" matSuffix>sentiment_very_satisfied
+    </mat-icon>
+    <button matTooltip="Exchange" mat-icon-button (click)="interchange()" style=" margin-top: 40%;" [disabled]="rate1===undefined || rate2==undefined">
+      <mat-icon style="font-size:xx-large; width: auto;" matSuffix>compare_arrows</mat-icon>
+    </button>
+  </div>
+  <div style="text-align: center; width: 100%; display: flex; justify-content: center; margin-bottom: 2%; margin-top: 1%;" *ngIf="isScreenLtMedium">
+    <mat-icon *ngIf="rate1 && rate2 && rate2>rate1" style="font-size: xxx-large; width: auto;" matSuffix>chevron_right
+    </mat-icon>
+    <mat-icon *ngIf="rate1 && rate2 && rate1>rate2" style="font-size: xxx-large; width: auto;" matSuffix>chevron_left
+    </mat-icon>
+    <mat-icon *ngIf="rate1==rate2" style="font-size: xxx-large; width: auto;" matSuffix>sentiment_very_satisfied
+    </mat-icon>
+    <button matTooltip="Exchange"
+    mat-icon-button
+    (click)="interchange()" [disabled]="rate1===undefined || rate2==undefined"
+  > <mat-icon style="font-size:xx-large; width: auto;" matSuffix>compare_arrows</mat-icon> </button>
   </div>
   <div style="text-align: center;">
     <img [src]="currency2a.imageUrl" alt="" />

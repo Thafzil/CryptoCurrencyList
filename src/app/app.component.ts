@@ -296,6 +296,13 @@ handleCal(num){
   
 }
 
+interchange(){
+  let c1=this.currency1a;
+  let c2=this.currency2a;
+  this.dealCurrency(c1,2);
+  this.dealCurrency(c2,1);
+}
+
   ngOnDestroy(): void {
     this.fiatSubscription.unsubscribe();
     this.fiatSubscription.unsubscribe();
