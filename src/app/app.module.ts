@@ -16,9 +16,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { CurrencyExchangeComponent } from './currency-exchange/currency-exchange.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, CurrencyExchangeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,6 +39,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MatGridListModule,
     MatTooltipModule,
     MatMenuModule,
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

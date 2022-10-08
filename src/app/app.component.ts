@@ -1,5 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { CryptoApiService } from './services/crypto-api.service';
@@ -55,12 +56,21 @@ export class AppComponent implements OnInit, OnDestroy {
   expandedElement: any;
   dataSource: any;
   language: any = 'INR';
+  currency1a:any={name:'Select',imageUrl:'',rate:1};
+  currency2a:any={name:'Select',imageUrl:'',rate:1};
   tickrSymbol: any = 'BTC';
   fetchStatus: string = 'fetching';
   favFetchStatus: string = 'fetching';
   mainStatus: string = 'fetching';
   isScreenLtMedium: boolean = false;
-  constructor(private cryptoSrv: CryptoApiService) {}
+  currency1Value:number;
+  currency2Value:number;
+  rate1:number;
+  rate2:number;
+  constructor(private cryptoSrv: CryptoApiService) {
+
+  }
+
   ngOnInit() {
     this.breakpoint = window.innerWidth <= 400 ? 1 : 6;
     this.onWindowResize();
@@ -239,6 +249,52 @@ export class AppComponent implements OnInit, OnDestroy {
       this.page.p3 = event.pageIndex * 10;
     }
   }
+
+
+  dealCurrency(currency, num){
+    console.log(currency,num)
+    switch(num){
+      case 1:
+        this.currency1a=currency
+        this.rate1=this.currency1a.rate
+        this.handleCal(2)
+        break;
+      case 2:
+        this.currency2a=currency
+        this.rate2=this.currency2a.rate
+        this.handleCal(1)
+        break;
+    }
+  }
+
+handleCal(num){
+  if(num===1){
+    if(this.rate2>this.rate1){
+      this.currency2Value=this.currency1Value*this.rate2
+    }else if(this.rate2<this.rate1){
+      this.currency2Value=this.currency1Value/this.rate1
+    }else{
+      this.currency2Value=this.currency1Value
+    }
+    
+  }else if(num===2){
+    if(this.rate1>this.rate2){
+      this.currency1Value=this.currency2Value*this.rate1
+    }else if(this.rate1<this.rate2){
+      this.currency1Value=this.currency2Value/this.rate2
+    }else{
+      this.currency1Value=this.currency2Value
+    }
+  }
+
+  if(this.currency1Value===0){
+    this.currency1Value=undefined
+  }
+  if(this.currency2Value===0){
+    this.currency2Value=undefined
+  }
+  
+}
 
   ngOnDestroy(): void {
     this.fiatSubscription.unsubscribe();
